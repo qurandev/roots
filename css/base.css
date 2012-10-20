@@ -6,6 +6,14 @@
 	font-size: 2em!important;
 }
 
+span.r0{ color: #3B5998;}
+span.r1{ color: red;}
+span.r2{ color: green;}
+span.r3{ color: blue;}
+span.r1, span.r2, span.r3 {
+	--font-weight: bold !important;
+}
+
 html, body {
     margin:0;
     padding:0;
