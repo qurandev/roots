@@ -30,17 +30,26 @@
 </div>-->
 <HR>
 <div ng-controller="rootsController">
-	<form ng-submit="submit()">
-		<input type=text id="input" ng-model="input" ng-change="change()" placeholder="Enter root here..." />
-		<input type="submit" text="Go" />
-		<input style="display: none" type=text id="debug" ng-model="debug" ng-change="change()" placeholder="Debug info. Ignore." /><HR>
+	<form ng-submit="submit()" class="form-search">
+	  <div class="row-fluid show-grid">
+	   <div class="span4">
+			<input type=text id="input" ng-model="input" ng-change="change()" class="search-query" placeholder="Enter root here... ex: qrr" />
+			<input type="submit" text="Go" />
+			<input style="display: none" type=text id="debug" ng-model="debug" ng-change="change()" placeholder="Debug info. Ignore." />
+		</div>
+		<div class="span8">
+			<div class="span3 well alert alert-info" ng-repeat="root in rootoutput">
+				<span><!--Letter --><span class="badge badge-success arabicsmall">{{root.letter}}</span>:    {{root.info}}</span>
+			</div>		
+		</div>
 		<span id="meaning"></span>
-		<span id="meaning" ng-repeat="meaning in rootmeaning">
-			<DIV><HR>Root {{meaning.root}}:     {{meaning.info}}</DIV><HR><HR>
-		</span>
-		<span ng-repeat="root in rootoutput">
-			<DIV>Letter {{root.letter}}:    {{root.info}}</DIV><HR>
-		</span>
+	  </div>
+  	  <div class="row show-grid alert alert-success clearfix" ng-repeat="meaning in rootmeaning">
+		<span><!--Root --><span class="badge badge-info arabic">{{meaning.root}}</span>:     {{meaning.info}}</span>
+	  </div>
+	  <div class="span12" ng-repeat="hit in searchhits">
+		<span>{{hit}}</span>
+	  </div>
 	</form>
 	<BR/>
 	
