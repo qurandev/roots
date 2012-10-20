@@ -15,9 +15,18 @@ MyCtrl2.$inject = [];
 
 
 
-var rootsController = function($scope){
-	console.log( 'rootsController - ' + $scope );
+
+var rootsController = function($scope, $http){
+	console.log( 'rootsController ' );
 	angular.element('#input').focus();
+	
+	//Set up paging
+	$scope.currentPage = 0;
+    $scope.pageSize = 10;
+	$scope.numberOfPages=function(filteredCount){ 
+		if(!$scope.searchhits) return 0;
+		else return Math.ceil( (filteredCount || $scope.searchhits.length)/$scope.pageSize);                
+    }
 
 	//if(ROOTS_DICT){ $scope.searchhits = ROOTS_DICT.split(' '); }
 	
@@ -26,7 +35,16 @@ var rootsController = function($scope){
 	$scope.ArToEn = ArToEn;
 	initAlphabetMap($scope); //setup the _MAP
 	$scope.mapRootToPhonetical = function(root){ if(root){ var ret=''; $.each(root.split(''), function(i, chr){ ret += ' '+ $scope._MAP_PHON[chr]; }); } return ret;};
-	//$scope.mapRootPrettyPrint = function(root){ if(root){ var ret = '', root = EnToAr(root), i=0; $.each(root.split(''), function(i, item){ ret +=});  } };
+	$scope.getMeaning = function(root){//debugger;
+		if(!_meanings) return;
+		if(!_MEANINGS_MAP){
+			_MEANINGS_MAP = {};
+			$.each( _meanings, function(m, mitem){ 
+				_MEANINGS_MAP[mitem.RootCode] = m; //save the index for fast lookups later..
+			});			
+		}
+		return _meanings[ _MEANINGS_MAP[root] ] ? _meanings[ _MEANINGS_MAP[root] ].Meanings : '- - - - - - - -';
+	}
 	
 	$scope.submit = function(){
 		console.log('submit - '+ $scope.input);
@@ -34,6 +52,7 @@ var rootsController = function($scope){
 	}
 	$scope.change = function(){
 		console.log('change - ' + $scope.input);
+		$scope.currentPage = 0;
 		if($scope.input && $scope.input.trim().length >= 1){
 			var input = $scope.input.trim();
 			var arr = input.split(''), output = '';
@@ -44,11 +63,11 @@ var rootsController = function($scope){
 			});
 			
 			//If we have the root, lookup & display its meaning.
-			if($scope.input.trim().length >= 3){
-				var text = meaning( input );
-				$scope.rootmeaning = [];
-				if(text){ $scope.rootmeaning.push( { root: EnToAr( input ), info: text} ); }
-			}else{$scope.rootmeaning = []; $('#meaning').html('');}
+			//if($scope.input.trim().length >= 3){
+				//var text = meaning( input );
+				//$scope.rootmeaning = [];
+				//if(text){ $scope.rootmeaning.push( { root: EnToAr( input ), info: text} ); }
+			//}else{$scope.rootmeaning = []; $('#meaning').html('');}
 
 			//Now lets populate searchhits based on keyword entered
 			$scope.searchhits = [];
@@ -56,10 +75,10 @@ var rootsController = function($scope){
 			//$scope.searchhits = ROOTS_DICT.match( regex );
 			if(ROOTS_DICT){ //root, group: orderBy options
 				$.each( ROOTS_DICT.split(' '), function(i, item){
-					var obj = { root: item, group: item.indexOf( input ), count: ROOTS_MAP[item], alphabet: $scope._MAP[item[0]]  };
+					var obj = { root: item, group: item.indexOf( input ), count: ROOTS_MAP[item], alphabet: $scope._MAP[item[0]] };
 					var ar = EnToAr(item), j = 0; if(ar) $.each(ar.split(''), function(k, kk){ obj['r'+j++] = kk; });
 					$scope.searchhits.push( obj ); //$scope.searchhits = ROOTS_DICT.split(' ');
-				});
+				}); //debugger;
 			}
 		}else{ $scope.rootoutput = []; $scope.searchhits = [];  }
 		//$scope.st.onClick( $scope.input );		
@@ -71,32 +90,14 @@ var rootsController = function($scope){
 		$scope.st = st;
 	}
 	
-	$scope.lookupMeaning = function(root){ return meaning(root); }
+
+	//Now load the meanings for later consumption...
+	$http.get( 'data/meanings.json').success(	function(data){ 
+		/*$scope.*/ _meanings = data; 
+	});
 }
 
-var _meanings;
-var meaning = function(root){
-	if(!_meanings || _meanings.length <= 0){
-		$.get('data/meanings.js', function(meanings){
-			_meanings = meanings;
-			$('#meaning').html( lookupMeaning(root) || EnToAr(root) + ': No data found!'); //return lookupMeaning(root);
-		});	
-	}
-	else{ 
-		$('#meaning').html(''); return lookupMeaning(root); 
-	}
-}
-
-var lookupMeaning = function(root){ console.log(root);
-	if(_meanings){
-		for(var i=0; i < _meanings.length; ++i){ 
-			if (_meanings[i].RootCode == root){ 
-				console.log( _meanings[i] );
-				return _meanings[i].Meanings;
-			} 
-		}
-	}
-}
+var _meanings, _MEANINGS_MAP;
 
 /************************ DATA ***********************/
 var ARABIC_LETTER_MAP = {
