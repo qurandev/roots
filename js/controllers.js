@@ -29,15 +29,15 @@ var rootsController = function($scope){
 			$scope.rootoutput = [];
 			$.each(arr, function(i, chr){
 				var text = ARABIC_LETTER_MAP[ chr ];
-				if(text){ $scope.rootoutput.push( {letter: chr, info: text } ); }
+				if(text){ $scope.rootoutput.push( {letter: EnToAr(chr), info: text } ); }
 			});
 			
 			if($scope.input.trim().length >= 3){
 				var text = meaning($scope.input.trim() );
 				$scope.rootmeaning = [];
-				if(text){ $scope.rootmeaning.push( { root: $scope.input.trim(), info: text} ); }
-			}else{$scope.rootmeaning = [];}
-		}else{ $scope.rootoutput = []; }
+				if(text){ $scope.rootmeaning.push( { root: EnToAr( $scope.input.trim() ), info: text} ); }
+			}else{$scope.rootmeaning = []; $('#meaning').html('');}
+		}else{ $scope.rootoutput = [];  }
 		//$scope.st.onClick( $scope.input );
 	}
 	$scope.treeClick = function(){
@@ -53,7 +53,7 @@ var meaning = function(root){
 	if(!_meanings || _meanings.length <= 0){
 		$.get('data/meanings.js', function(meanings){
 			_meanings = meanings;
-			$('#meaning').html( lookupMeaning(root) +'<HR>'); //return lookupMeaning(root);
+			$('#meaning').html( lookupMeaning(root) || EnToAr(root) + ': No data found!' +'<HR>'); //return lookupMeaning(root);
 		});	
 	}
 	else{ 

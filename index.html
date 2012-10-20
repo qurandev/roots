@@ -31,15 +31,15 @@
 <HR>
 <div ng-controller="rootsController">
 	<form ng-submit="submit()">
-		<input type=text id="input" ng-model="input" ng-change="change()" placeholder="Enter root here..." />
+		<input type=text id="input" ng-model="input" ng-change="change()" placeholder="Enter root here... ex: qrr" />
 		<input type="submit" text="Go" />
 		<input style="display: none" type=text id="debug" ng-model="debug" ng-change="change()" placeholder="Debug info. Ignore." /><HR>
 		<span id="meaning"></span>
 		<span id="meaning" ng-repeat="meaning in rootmeaning">
-			<DIV><HR>Root {{meaning.root}}:     {{meaning.info}}</DIV><HR><HR>
+			<DIV><HR>Root <span class="badge badge-info arabic">{{meaning.root}}</span>:     {{meaning.info}}</DIV><HR><HR>
 		</span>
 		<span ng-repeat="root in rootoutput">
-			<DIV>Letter {{root.letter}}:    {{root.info}}</DIV><HR>
+			<DIV>Letter <span class="badge badge-success arabicsmall">{{root.letter}}</span>:    {{root.info}}</DIV><HR>
 		</span>
 	</form>
 	<BR/>
