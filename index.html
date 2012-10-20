@@ -1,0 +1,110 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en" ng-app="myApp">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<title>Arabic Roots</title>
+
+<!-- CSS Files -->
+<link type="text/css" href="css/base.css" rel="stylesheet" />
+<link type="text/css" href="css/Spacetree.css" rel="stylesheet" />
+<link type="text/css" href="http://twitter.github.com/bootstrap/assets/css/bootstrap.css" rel="stylesheet" />
+<!--[if IE]><script language="javascript" type="text/javascript" src="../../Extras/excanvas.js"></script><![endif]-->
+
+<!-- JIT Library File -->
+<script language="javascript" type="text/javascript" src="js/jit-yc.js"></script>
+
+<!-- Example File -->
+<script language="javascript" type="text/javascript" src="lib/jquery-1.7.min.js"></script>
+<script language="javascript" type="text/javascript" src="js/mapper.js"></script>
+<script language="javascript" type="text/javascript" src="js/graph.js"></script>
+</head>
+
+<body onload="init();">
+
+<!--<ul class=menu>
+	<li><a href='#/view1'>view1</a></li>
+	<li><a href='#/view2'>view2</a></li>
+</ul>
+<div ng-view>
+</div>-->
+<HR>
+<div ng-controller="rootsController">
+	<form ng-submit="submit()">
+		<input type=text id="input" ng-model="input" ng-change="change()" placeholder="Enter root here..." />
+		<input type="submit" text="Go" />
+		<input style="display: none" type=text id="debug" ng-model="debug" ng-change="change()" placeholder="Debug info. Ignore." /><HR>
+		<span id="meaning"></span>
+		<span id="meaning" ng-repeat="meaning in rootmeaning">
+			<DIV><HR>Root {{meaning.root}}:     {{meaning.info}}</DIV><HR><HR>
+		</span>
+		<span ng-repeat="root in rootoutput">
+			<DIV>Letter {{root.letter}}:    {{root.info}}</DIV><HR>
+		</span>
+	</form>
+	<BR/>
+	
+	<!--------------------------------->
+	<div id="container">
+		<div id="left-container" style="visibility: hidden">
+			<div class="text">
+				<h4>Root tree</h4> 
+				<b>Click</b> on a node to select it.<br /><br />
+				You can <b>select the tree orientation</b> by changing the select box in the right column.<br /><br />
+				You can <b>change the selection mode</b> from <em>Normal</em> selection (i.e. center the selected node) to 
+				<em>Set as Root</em>.<br /><br />
+				<b>Drag and Drop the canvas</b> to do some panning.<br /><br />
+				Leaves color depend on the number of children they actually have.
+			</div>
+			<div id="id-list"></div>
+			<div style="text-align:center;"><a href="example1.js">See the Example Code</a></div>            
+		</div>
+
+		<div id="center-container" style="width: 90%">
+			<div ng-click="treeClick()" id="infovis"></div>
+		</div>
+
+		<div id="right-container">
+			<h4>Tree Orientation</h4>
+			<table>
+				<tr><td><label for="r-left">Left </label></td>
+					<td><input type="radio" id="r-left" name="orientation" XXchecked="checked" value="left" /></td>
+				</tr>
+				<tr><td><label for="r-top">Top </label></td>
+					 <td><input type="radio" id="r-top" name="orientation" checked="checked" value="top" /></td>
+				</tr>
+				<tr><td><label for="r-bottom">Bottom </label></td>
+					  <td><input type="radio" id="r-bottom" name="orientation" value="bottom" /></td>
+				</tr>
+				<tr><td><label for="r-right">Right </label></td> 
+					  <td><input type="radio" id="r-right" name="orientation" value="right" /></td>
+				</tr>
+			</table>
+
+			<h4>Selection Mode</h4>
+			<table>
+				<tr><td><label for="s-normal">Normal </label></td>
+					<td><input type="radio" id="s-normal" name="selection" checked="checked" value="normal" /></td>
+				</tr>
+				<tr><td><label for="s-root">Set as Root </label></td>
+					 <td><input type="radio" id="s-root" name="selection" value="root" /></td>
+				</tr>
+			</table>
+		</div>
+		<div id="log"></div>
+	</div>
+	<!--------------------------------->
+<!--	<BR/><input type=text ng-model="input" />
+	<BR/>
+	<BR/> -->
+</div>
+
+
+  <script src="lib/angular/angular.js"></script>
+  <script src="js/app.js"></script>
+  <script src="js/services.js"></script>
+  <script src="js/controllers.js"></script>
+  <script src="js/filters.js"></script>
+  <script src="js/directives.js"></script>
+</body>
+</html>
