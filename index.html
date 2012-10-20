@@ -36,10 +36,12 @@
 			<input type=text id="input" ng-model="input" ng-change="change()" class="search-query" placeholder="Enter root here... ex: qrr" />
 			<input type="submit" text="Go" />
 			<input style="display: none" type=text id="debug" ng-model="debug" ng-change="change()" placeholder="Debug info. Ignore." />
+			<A HREF="javascript:history.go(0)" TITLE="Click to Refresh page"><i class="icon-refresh pull-right"></i></A>
 		</div>
 		<div class="span8">
 			<div class="span3 well alert alert-info" ng-repeat="root in rootoutput">
 				<span><!--Letter --><span class="badge badge-success arabicsmall">{{root.letter}}</span>:    {{root.info}}</span>
+				<A HREF="http://ia600806.us.archive.org/34/items/MeaningOfTheSemitLetters/AlphabetOrigin.pdf" TARGET=_><i class="icon-info-sign"></i></A>
 			</div>		
 		</div>
 		<span id="meaning"></span>
@@ -54,7 +56,8 @@
 				<b>{{( searchhits | filter:input ).length}} hits for '{{input}}'</b>&nbsp;&nbsp;&nbsp;&nbsp;
 				Sort by: 
 				<select ng-model="orderProp">
-				  <option value=root>Alphabetical</name>
+				  <!--<option value=root>Alphabetical</name>-->
+				  <option value=alphabet>Alphabetical</name>
 				  <option value=group>Arrangement</name>
 				  <option value=count># of occurences</name>
 				</select>
@@ -64,9 +67,12 @@
 				<tr><TH>Root</TH><TH>Arrangement group</TH><TH># of occurences</TH><TH>Links</TH><TH>Meaning</TH></tr>
 			  </THEAD><TBODY>
 			  <tr ng-repeat="hit in searchhits | filter:input | orderBy:orderProp">
-				<td><span class=arabic>{{EnToAr( hit.root )}}</span></td>
-				<td>{{ (hit.group); }}</td>
-				<td>{{ hit.count }} </td>
+				<td><span class=arabic><A HREF="http://corpus.quran.com/search.jsp?q=root:{{hit.root}}" TARGET=_>{{EnToAr( hit.root )}}</A></span></td>
+				<td>{{ (hit.group); }}&nbsp;&nbsp;&nbsp;&nbsp;{{hit.alphabet}}</td>
+				<td><A HREF="http://corpus.quran.com/qurandictionary.jsp?q={{hit.root}}" TARGET=_>{{ hit.count }}</A></td>
+				<td><A HREF="http://ejtaal.net/m/aa/#q={{hit.root}}" TARGET=_>Hans, Lane, Hava dictionary</A>&nbsp;&nbsp;&nbsp;&nbsp;
+					<A HREF="http://dictionary.speakarabicquickly.com/dictionary/search/{{ EnToAr(hit.root) }}" TARGET=_>Modern dictionary</A></td>
+				<td></td>
 			  </tr>
 			  </TBODY></TABLE>
 		  </div>

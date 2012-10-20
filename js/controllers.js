@@ -24,6 +24,7 @@ var rootsController = function($scope){
 	$scope.orderProp = "group";
 	$scope.EnToAr = EnToAr;
 	$scope.ArToEn = ArToEn;
+	initAlphabetMap($scope); //setup the _MAP
 	
 	$scope.submit = function(){
 		console.log('submit - '+ $scope.input);
@@ -53,7 +54,7 @@ var rootsController = function($scope){
 			//$scope.searchhits = ROOTS_DICT.match( regex );
 			if(ROOTS_DICT){ //root, group: orderBy options
 				$.each( ROOTS_DICT.split(' '), function(i, item){
-					$scope.searchhits.push( { root: item, group: item.indexOf( input ), count: ROOTS_MAP[item] } ); //$scope.searchhits = ROOTS_DICT.split(' ');
+					$scope.searchhits.push( { root: item, group: item.indexOf( input ), count: ROOTS_MAP[item], alphabet: $scope._MAP[item[0]] } ); //$scope.searchhits = ROOTS_DICT.split(' ');
 				});
 			}
 		}else{ $scope.rootoutput = []; $scope.searchhits = [];  }
@@ -155,4 +156,13 @@ if(!ROOTS_DICT || ROOTS_DICT == "")
 	
 var escapeRegex = function (str) {
         return str.replace(/[-[\]{}()*+?.,\\^$|#\s]/g, "\\$&");
+}
+
+//This sets up mapping of a buck character to its position in Arabic Alphabet.
+var initAlphabetMap = function($scope){
+	$scope._MAP = {}
+	$.each(_buckArr, function(i, item){ 
+		$scope._MAP[item] = i;
+	});
+	$scope._MAP['A'] = 1; //hack since its getting allocated 29
 }
