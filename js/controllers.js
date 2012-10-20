@@ -1,4 +1,4 @@
-'use strict';
+﻿'use strict';
 
 /* Controllers */
 
@@ -25,6 +25,8 @@ var rootsController = function($scope){
 	$scope.EnToAr = EnToAr;
 	$scope.ArToEn = ArToEn;
 	initAlphabetMap($scope); //setup the _MAP
+	$scope.mapRootToPhonetical = function(root){ if(root){ var ret=''; $.each(root.split(''), function(i, chr){ ret += ' '+ $scope._MAP_PHON[chr]; }); } return ret;};
+	//$scope.mapRootPrettyPrint = function(root){ if(root){ var ret = '', root = EnToAr(root), i=0; $.each(root.split(''), function(i, item){ ret +=});  } };
 	
 	$scope.submit = function(){
 		console.log('submit - '+ $scope.input);
@@ -54,7 +56,9 @@ var rootsController = function($scope){
 			//$scope.searchhits = ROOTS_DICT.match( regex );
 			if(ROOTS_DICT){ //root, group: orderBy options
 				$.each( ROOTS_DICT.split(' '), function(i, item){
-					$scope.searchhits.push( { root: item, group: item.indexOf( input ), count: ROOTS_MAP[item], alphabet: $scope._MAP[item[0]] } ); //$scope.searchhits = ROOTS_DICT.split(' ');
+					var obj = { root: item, group: item.indexOf( input ), count: ROOTS_MAP[item], alphabet: $scope._MAP[item[0]]  };
+					var ar = EnToAr(item), j = 0; if(ar) $.each(ar.split(''), function(k, kk){ obj['r'+j++] = kk; });
+					$scope.searchhits.push( obj ); //$scope.searchhits = ROOTS_DICT.split(' ');
 				});
 			}
 		}else{ $scope.rootoutput = []; $scope.searchhits = [];  }
@@ -160,9 +164,12 @@ var escapeRegex = function (str) {
 
 //This sets up mapping of a buck character to its position in Arabic Alphabet.
 var initAlphabetMap = function($scope){
-	$scope._MAP = {}
+	$scope._MAP = {}; $scope._MAP_PHON = {};
 	$.each(_buckArr, function(i, item){ 
-		$scope._MAP[item] = i;
+		$scope._MAP[item] = i; 
+		if(i < _PHONETICAL_ARRAY.length) $scope._MAP_PHON[item] = _PHONETICAL_ARRAY[i];
 	});
 	$scope._MAP['A'] = 1; //hack since its getting allocated 29
 }
+
+var _PHONETICAL_ARRAY = ["hamza", "hamza", "bā", "tā", "thā", "jīm", "ḥā", "khā", "dāl", "dhāl", "rā", "zāy", "sīn", "shīn", "ṣād", "ḍād", "ṭā", "ẓā", "ʿayn", "ghayn", "fā", "qāf", "kāf", "lām", "mīm", "nūn", "wāw", "yā", "hamza", "yā"];

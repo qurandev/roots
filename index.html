@@ -64,15 +64,19 @@
 			  </div>
 			  <TABLE class="table table-striped table-bordered table-condensed">
 			  <THEAD ng-show="(searchhits | filter:input).length > 0">
-				<tr><TH>Root</TH><TH>Arrangement group</TH><TH># of occurences</TH><TH>Links</TH><TH>Meaning</TH></tr>
+				<tr><TH>Root</TH><TH>&nbsp;</TH><TH>group</TH><TH>alphabet</TH><TH># of occurences</TH><TH>Dictionaries</TH><TH>Meaning</TH></tr>
 			  </THEAD><TBODY>
 			  <tr ng-repeat="hit in searchhits | filter:input | orderBy:orderProp">
-				<td><span class=arabic><A HREF="http://corpus.quran.com/search.jsp?q=root:{{hit.root}}" TARGET=_>{{EnToAr( hit.root )}}</A></span></td>
-				<td>{{ (hit.group); }}&nbsp;&nbsp;&nbsp;&nbsp;{{hit.alphabet}}</td>
+				<td><span class=arabic><A HREF="http://corpus.quran.com/search.jsp?q=root:{{hit.root}}" TARGET=_>
+						<span class=r0>{{hit.r0}}</span><span class="tiny">&nbsp;</span><span class=r1>{{hit.r1}}</span><span class="tiny">&nbsp;</span><span class=r2>{{hit.r2}}</span><span class="tiny">&nbsp;</span><span class=r3>{{hit.r3}}</span></A>
+					</span></td>
+				<td>{{ mapRootToPhonetical(hit.root) }}</td>
+				<td>{{ (hit.group); }}</td>
+				<td>{{hit.alphabet}}</td>
 				<td><A HREF="http://corpus.quran.com/qurandictionary.jsp?q={{hit.root}}" TARGET=_>{{ hit.count }}</A></td>
-				<td><A HREF="http://ejtaal.net/m/aa/#q={{hit.root}}" TARGET=_>Hans, Lane, Hava dictionary</A>&nbsp;&nbsp;&nbsp;&nbsp;
-					<A HREF="http://dictionary.speakarabicquickly.com/dictionary/search/{{ EnToAr(hit.root) }}" TARGET=_>Modern dictionary</A></td>
-				<td></td>
+				<td class="muted"><A HREF="http://ejtaal.net/m/aa/#q={{hit.root}}" TARGET=_ TITLE="Hans Wehr, Lane, Hava dictionary"><i class="icon-globe"></i></A>&nbsp;&nbsp;&nbsp;&nbsp;
+					<A HREF="http://dictionary.speakarabicquickly.com/dictionary/search/{{ EnToAr(hit.root) }}" TARGET=_ TITLE="Modern dictionary"><i class="icon-hand-up"></i></A></td>
+				<td>{{hit.meaning || '-------------------------------------------------------------------------------------------------------------------------------'}}</td>
 			  </tr>
 			  </TBODY></TABLE>
 		  </div>
