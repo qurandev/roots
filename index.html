@@ -68,7 +68,7 @@
 			  </div>
 			  <TABLE class="table table-striped table-bordered table-condensed">
 			  <THEAD ng-show="(searchhits | filter:input).length > 0">
-				<tr><TH>#</TH><TH>Root</TH><TH>&nbsp;</TH><TH>grp</TH><TH>&nbsp;</TH><TH># occured</TH><TH>dictionary</TH><TH>Meaning</TH></tr>
+				<tr><TH>#</TH><TH>Root</TH><TH>&nbsp;</TH><TH>set#</TH><TH>&nbsp;</TH><TH># occured</TH><TH>dictionary</TH><TH>Meaning</TH></tr>
 			  </THEAD><TBODY>
 			  <tr ng-repeat="hit in searchhits | filter:input | orderBy:orderProp  | startFrom:currentPage*pageSize | limitTo:pageSize">
 				<td>{{1 + $index + currentPage*pageSize }}</td>
@@ -77,13 +77,28 @@
 					</span></td>
 				<td>{{ mapRootToPhonetical(hit.root) }}</td>
 				<td>{{ (hit.group); }}</td>
-				<td>{{hit.alphabet}}</td>
+				<td><span class='arabicsmall'>{{ mapToAlphabet(hit.alphabet) }}</span></td>
 				<td><A HREF="http://corpus.quran.com/qurandictionary.jsp?q={{hit.root}}" TARGET=_>{{ hit.count }}</A></td>
 				<td class="muted"><A HREF="http://ejtaal.net/m/aa/#q={{hit.root}}" TARGET=_ TITLE="Hans Wehr, Lane, Hava dictionary"><i class="icon-globe"></i></A>&nbsp;&nbsp;&nbsp;&nbsp;
 					<A HREF="http://dictionary.speakarabicquickly.com/dictionary/search/{{ EnToAr(hit.root) }}" TARGET=_ TITLE="Modern dictionary"><i class="icon-hand-up"></i></A></td>
-				<td>{{getMeaning( hit.root ) }}</td>
+				<td>{{getMeaning( hit.root ) }}<A HREF="http://www.studyquran.co.uk/{{_MAP_PRL[hit.root[0]]}}.htm" TARGET="_" TITLE="Lookup meaning in PRL (Project Root List)"><i class="icon-book"></i></A></td>
 			  </tr>
-			  </TBODY></TABLE>
+			  </TBODY>
+			  </TABLE>
+			  <div ng-show="(searchhits | filter:input).length > 0"  class="alert alert-success">
+				<b>{{( searchhits | filter:input ).length}} hits for '{{input}}'</b>&nbsp;&nbsp;&nbsp;&nbsp;
+				Sort by: 
+				<select ng-model="orderProp">
+				  <!--<option value=root>Alphabetical</name>-->
+				  <option value=alphabet>Alphabetical</name>
+				  <option value=group>Arrangement</name>
+				  <option value=count># of occurences</name>
+				</select>
+ 			    <button ng-disabled="currentPage == 0" ng-click="currentPage=currentPage-1">Previous</button>
+				Page <span class="badge badge-inverse">{{currentPage+1}}</span> / 
+					 <span class="badge">{{numberOfPages(  ( searchhits | filter:input ).length  )}}</span>
+				<button ng-disabled="currentPage >= (searchhits | filter:input).length/pageSize - 1" ng-click="currentPage=currentPage+1">Next</button>
+			  </div>
 		  </div>
 	  </div>
 	</form>

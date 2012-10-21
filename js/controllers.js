@@ -35,6 +35,7 @@ var rootsController = function($scope, $http){
 	$scope.ArToEn = ArToEn;
 	initAlphabetMap($scope); //setup the _MAP
 	$scope.mapRootToPhonetical = function(root){ if(root){ var ret=''; $.each(root.split(''), function(i, chr){ ret += ' '+ $scope._MAP_PHON[chr]; }); } return ret;};
+	$scope.mapToAlphabet = function(number){ if(_charsArr){ return _charsArr[number]; } }
 	$scope.getMeaning = function(root){//debugger;
 		if(!_meanings) return;
 		if(!_MEANINGS_MAP){
@@ -100,6 +101,7 @@ var rootsController = function($scope, $http){
 var _meanings, _MEANINGS_MAP;
 
 /************************ DATA ***********************/
+
 var ARABIC_LETTER_MAP = {
 "A": "-First -Reference -Manifest itself",
 "b": "-Medium -Bring",
@@ -165,12 +167,16 @@ var escapeRegex = function (str) {
 
 //This sets up mapping of a buck character to its position in Arabic Alphabet.
 var initAlphabetMap = function($scope){
-	$scope._MAP = {}; $scope._MAP_PHON = {};
+	$scope._MAP = {}; $scope._MAP_PHON = {}; $scope._MAP_PRL = {};
 	$.each(_buckArr, function(i, item){ 
 		$scope._MAP[item] = i; 
 		if(i < _PHONETICAL_ARRAY.length) $scope._MAP_PHON[item] = _PHONETICAL_ARRAY[i];
+		if(i < _PRL_LETTERS_ARRAY.length) $scope._MAP_PRL[item] = _PRL_LETTERS_ARRAY[i];
 	});
 	$scope._MAP['A'] = 1; //hack since its getting allocated 29
 }
 
 var _PHONETICAL_ARRAY = ["hamza", "hamza", "bā", "tā", "thā", "jīm", "ḥā", "khā", "dāl", "dhāl", "rā", "zāy", "sīn", "shīn", "ṣād", "ḍād", "ṭā", "ẓā", "ʿayn", "ghayn", "fā", "qāf", "kāf", "lām", "mīm", "nūn", "hā", "wāw", "yā", "hamza", "yā"];
+
+var	_PRL_LETTERS_ARRAY = ["1_ALIF", "1_ALIF", "3_BA", "21_TA", "23_THA", "10_JIIM", "9_HAA", "12_KHA", "5_DAL", "24_THAL", "17_RA", "28_ZAY", "20_SIIN", "19_SH", "18_SAD", "4_DAD", "22_TAY", "27_ZA", "2_AYN", "7_GH", "6_FA", "16_QAF", "11_KAF", "13_LAM", "14_MIIM", "15_NUN", "8_ha", "25_WAW", "26_YA"]; //.htm  data/PRLonline/ .htm
+
