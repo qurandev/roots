@@ -44,7 +44,7 @@ var rootsController = function($scope, $http){
 				_MEANINGS_MAP[mitem.RootCode] = m; //save the index for fast lookups later..
 			});			
 		}
-		return _meanings[ _MEANINGS_MAP[root] ] ? _meanings[ _MEANINGS_MAP[root] ].Meanings : '- - - - - - - -';
+		return _meanings[ _MEANINGS_MAP[root] ] ? _meanings[ _MEANINGS_MAP[root] ].Meanings : '-';
 	}
 	
 	$scope.submit = function(){

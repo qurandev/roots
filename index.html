@@ -81,7 +81,13 @@
 				<td><A HREF="http://corpus.quran.com/qurandictionary.jsp?q={{hit.root}}" TARGET=_>{{ hit.count }}</A></td>
 				<td class="muted"><A HREF="http://ejtaal.net/m/aa/#q={{hit.root}}" TARGET=_ TITLE="Hans Wehr, Lane, Hava dictionary"><i class="icon-globe"></i></A>&nbsp;&nbsp;&nbsp;&nbsp;
 					<A HREF="http://dictionary.speakarabicquickly.com/dictionary/search/{{ EnToAr(hit.root) }}" TARGET=_ TITLE="Modern dictionary"><i class="icon-hand-up"></i></A></td>
-				<td>{{getMeaning( hit.root ) }}<A HREF="http://www.studyquran.co.uk/{{_MAP_PRL[hit.root[0]]}}.htm" TARGET="_" TITLE="Lookup meaning in PRL (Project Root List)"><i class="icon-book"></i></A></td>
+				<td><p class="showMe">{{getMeaning( hit.root ).substring(0, 150) }}
+					<a class="more" href="#url" tabindex="1">more »</a> 
+					<a class="less" href="#url" tabindex="1">« less</a>
+					<span><br>{{getMeaning( hit.root ).substring(150) }}
+					&nbsp;&nbsp;&nbsp;&nbsp;<A HREF="http://www.studyquran.co.uk/{{_MAP_PRL[hit.root[0]]}}.htm" TARGET="_" TITLE="Lookup meaning in PRL (Project Root List)"><i class="icon-book"></i></A>
+					</span></p>
+				</td>
 			  </tr>
 			  </TBODY>
 			  </TABLE>
