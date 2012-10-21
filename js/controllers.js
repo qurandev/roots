@@ -76,7 +76,7 @@ var rootsController = function($scope, $http){
 			//$scope.searchhits = ROOTS_DICT.match( regex );
 			if(ROOTS_DICT){ //root, group: orderBy options
 				$.each( ROOTS_DICT.split(' '), function(i, item){
-					var obj = { root: item, group: item.indexOf( input ), count: ROOTS_MAP[item], alphabet: $scope._MAP[item[0]] };
+					var obj = { root: item, group: (1 + item.indexOf( input ) ) || 10, count: ROOTS_MAP[item], alphabet: $scope._MAP[item[0]] };
 					var ar = EnToAr(item), j = 0; if(ar) $.each(ar.split(''), function(k, kk){ obj['r'+j++] = kk; });
 					$scope.searchhits.push( obj ); //$scope.searchhits = ROOTS_DICT.split(' ');
 				}); //debugger;
