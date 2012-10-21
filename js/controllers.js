@@ -173,4 +173,4 @@ var initAlphabetMap = function($scope){
 	$scope._MAP['A'] = 1; //hack since its getting allocated 29
 }
 
-var _PHONETICAL_ARRAY = ["hamza", "hamza", "bā", "tā", "thā", "jīm", "ḥā", "khā", "dāl", "dhāl", "rā", "zāy", "sīn", "shīn", "ṣād", "ḍād", "ṭā", "ẓā", "ʿayn", "ghayn", "fā", "qāf", "kāf", "lām", "mīm", "nūn", "wāw", "yā", "hamza", "yā"];
+var _PHONETICAL_ARRAY = ["hamza", "hamza", "bā", "tā", "thā", "jīm", "ḥā", "khā", "dāl", "dhāl", "rā", "zāy", "sīn", "shīn", "ṣād", "ḍād", "ṭā", "ẓā", "ʿayn", "ghayn", "fā", "qāf", "kāf", "lām", "mīm", "nūn", "hā", "wāw", "yā", "hamza", "yā"];
