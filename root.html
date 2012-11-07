@@ -375,20 +375,6 @@ console.log(regex);
 		$('#output').val( $('#output').val() + ' ' + unescape(word) ); scrollToEnd('output');		
 	}
 	
-	var searchByWildChars = function(input, regex){
-		var r0 = $('#r0').val() || '';
-		var r1 = $('#r1').val() || '';
-		var r2 = $('#r2').val() || '';
-		
-		r0 = r0 ? '[' + escapeRegex(r0) + ']' : '.?';
-		r1 = r1 ? '[' + escapeRegex(r1) + ']' : '.?';
-		r2 = r2 ? '[' + escapeRegex(r2) + ']' : '.?';
-		regex = '[ ]' + r0 + r1 + r2 + '[ ]'; console.log(regex);
-		words = input.match( XRegExp(regex, "g") );
-		return words;
-	}
-
-	
 	var process = function(input){
 		var input = $('#input').val(), origInput = '', output='', regex1, regex2, words, status=''; origInput = input;
 		if(input == ''){ $('#suggest').html('').hide(); $('#didyoumean').html('').hide();}
@@ -454,11 +440,30 @@ console.log(regex);
 	
 	
 	var process2 = function(){
+		var r0 = $('#r0').val() || '';
+		var r1 = $('#r1').val() || '';
+		var r2 = $('#r2').val() || '';
+		if(isArabic(r0) ) r0 = ArToEn( r0 );
+		if(isArabic(r1) ) r1 = ArToEn( r1 );
+		if(isArabic(r2) ) r2 = ArToEn( r2 );
 		var input = ROOTS_DICT;
-		var _words1 = searchByWildChars(input);
+		var _words1 = searchByWildChars(input, r0, r1, r2);
 		paintRoots(input, _words1);
 		return _words1;
 	}
+
+	
+	var searchByWildChars = function(input, r0, r1, r2){
+		var regex, words;
+		r0 = r0 ? '[' + escapeRegex(r0) + ']' : '.?';
+		r1 = r1 ? '[' + escapeRegex(r1) + ']' : '.?';
+		r2 = r2 ? '[' + escapeRegex(r2) + ']' : '.?';
+		regex = '[ ]' + r0 + r1 + r2 + '[ ]'; console.log(regex);
+		words = input.match( XRegExp(regex, "g") );
+		return words;
+	}
+
+	
 
 	//var _bYAMLI_ENABLED = false;
 	var toggleYamli = function(){ _bYAMLI_ENABLED = !_bYAMLI_ENABLED;
