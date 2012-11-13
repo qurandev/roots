@@ -27,6 +27,7 @@ var rootsController = function($scope, $http){
 		if(!$scope.searchhits) return 0;
 		else return Math.ceil( (filteredCount || $scope.searchhits.length)/$scope.pageSize);                
     }
+	$scope.ROOTS = ROOTS_DICT;
 
 	//if(ROOTS_DICT){ $scope.searchhits = ROOTS_DICT.split(' '); }
 	

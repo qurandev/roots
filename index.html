@@ -40,20 +40,20 @@
 		</div>
 		<div class="span8">
 			<div class="span3 well alert alert-info" ng-repeat="root in rootoutput">
-				<span><!--Letter --><span class="badge badge-success arabicsmall">{{root.letter}}</span>:    {{root.info}}</span>
+				<span><!--Letter --><span class="badge badge-success arabicsmall" ng-bind="root.letter"></span>:    <span ng-bind="root.info"></span>
 				<A HREF="http://ia600806.us.archive.org/34/items/MeaningOfTheSemitLetters/AlphabetOrigin.pdf" TARGET=_><i class="icon-info-sign"></i></A>
 			</div>		
 		</div>
 		<span id="meaning"></span>
 	  </div>
   	  <div class="row show-grid alert alert-success clearfix" ng-repeat="meaning in rootmeaning">
-		<span><!--Root --><span class="badge badge-info arabic">{{meaning.root}}</span>:     {{meaning.info}}</span>
+		<span><!--Root --><span class="badge badge-info arabic" ng-bind="meaning.root"></span>:     <span ng-bind="meaning.info"></span>
 	  </div>
 	  <div class="row-fluid show-grid">
 		  <div>
 			  <p ng-show="!!input && (searchhits | filter:input).length==0"  class="alert alert-warn">There are no search hits for given query.</p>
 			  <div ng-show="(searchhits | filter:input).length > 0"  class="alert alert-success">
-				<b>{{( searchhits | filter:input ).length}} hits for '{{input}}'</b>&nbsp;&nbsp;&nbsp;&nbsp;
+				<b><span ng-bind="( searchhits | filter:input ).length + ' hits for ' + input"></span></b>&nbsp;&nbsp;&nbsp;&nbsp;
 				Sort by: 
 				<select ng-model="orderProp">
 				  <!--<option value=root>Alphabetical</name>-->
@@ -62,8 +62,8 @@
 				  <option value=-count># of occurences</name>
 				</select>
  			    <button ng-disabled="currentPage == 0" ng-click="currentPage=currentPage-1">Previous</button>
-				Page <span class="badge badge-inverse">{{currentPage+1}}</span> / 
-					 <span class="badge">{{numberOfPages(  ( searchhits | filter:input ).length  )}}</span>
+				Page <span class="badge badge-inverse" ng-bind="currentPage+1"></span> / 
+					 <span class="badge" ng-bind="numberOfPages(  ( searchhits | filter:input ).length  )"></span>
 				<button ng-disabled="currentPage >= (searchhits | filter:input).length/pageSize - 1" ng-click="currentPage=currentPage+1">Next</button>
 			  </div>
 			  <TABLE class="table table-striped table-bordered table-condensed">
@@ -71,20 +71,20 @@
 				<tr><TH>#</TH><TH>Root</TH><TH>&nbsp;</TH><TH>set#</TH><TH>&nbsp;</TH><TH># occured</TH><TH>dictionary</TH><TH>Meaning</TH></tr>
 			  </THEAD><TBODY>
 			  <tr ng-repeat="hit in searchhits | filter:input | orderBy:orderProp  | startFrom:currentPage*pageSize | limitTo:pageSize">
-				<td>{{1 + $index + currentPage*pageSize }}</td>
+				<td><SPAN ng-bind="1 + $index + currentPage*pageSize "></SPAN></td>
 				<td><span class=arabic><A HREF="http://corpus.quran.com/search.jsp?q=root:{{hit.root}}" TARGET=_>
-						<span class=r0>{{hit.r0}}</span><span class="tiny">&nbsp;</span><span class=r1>{{hit.r1}}</span><span class="tiny">&nbsp;</span><span class=r2>{{hit.r2}}</span><span class="tiny">&nbsp;</span><span class=r3>{{hit.r3}}</span></A>
+						<span class=r0 ng-bind="hit.r0"></span><span class="tiny">&nbsp;</span><span class=r1 ng-bind="hit.r1"></span><span class="tiny">&nbsp;</span><span class=r2 ng-bind="hit.r2"></span><span class="tiny">&nbsp;</span><span class=r3 ng-bind="hit.r3"></span></A>
 					</span></td>
-				<td>{{ mapRootToPhonetical(hit.root) }}</td>
-				<td>{{ (hit.group); }}</td>
-				<td><span class='arabicsmall'>{{ mapToAlphabet(hit.alphabet) }}</span></td>
-				<td><A HREF="http://corpus.quran.com/qurandictionary.jsp?q={{hit.root}}" TARGET=_>{{ hit.count }}</A></td>
+				<td><span ng-bind="mapRootToPhonetical(hit.root)"></span></td>
+				<td><span ng-bind=" (hit.group); "></span></td>
+				<td><span class='arabicsmall' ng-bind=" mapToAlphabet(hit.alphabet) "></span></td>
+				<td><A HREF="http://corpus.quran.com/qurandictionary.jsp?q={{hit.root}}" TARGET=_ ng-bind=" hit.count "></A></td>
 				<td class="muted"><A HREF="http://ejtaal.net/m/aa/#q={{hit.root}}" TARGET=_ TITLE="Hans Wehr, Lane, Hava dictionary"><i class="icon-globe"></i></A>&nbsp;&nbsp;&nbsp;&nbsp;
 					<A HREF="http://dictionary.speakarabicquickly.com/dictionary/search/{{ EnToAr(hit.root) }}" TARGET=_ TITLE="Modern dictionary"><i class="icon-hand-up"></i></A></td>
-				<td><p class="showMe">{{getMeaning( hit.root ).substring(0, 150) }}
+				<td><p class="showMe" ng-bind="getMeaning( hit.root ).substring(0, 150) ">
 					<a class="more" href="#url" tabindex="1">more »</a> 
 					<a class="less" href="#url" tabindex="1">« less</a>
-					<span><br>{{getMeaning( hit.root ).substring(150) }}
+					<span><br><span ng-bind="getMeaning( hit.root ).substring(150) "></span>
 					&nbsp;&nbsp;&nbsp;&nbsp;<A HREF="http://www.studyquran.co.uk/{{_MAP_PRL[hit.root[0]]}}.htm" TARGET="_" TITLE="Lookup meaning in PRL (Project Root List)"><i class="icon-book"></i></A>
 					</span></p>
 				</td>
@@ -92,7 +92,7 @@
 			  </TBODY>
 			  </TABLE>
 			  <div ng-show="(searchhits | filter:input).length > 0"  class="alert alert-success">
-				<b>{{( searchhits | filter:input ).length}} hits for '{{input}}'</b>&nbsp;&nbsp;&nbsp;&nbsp;
+				<b><span ng-bind="( searchhits | filter:input ).length +' hits for ' + input"></span></b>&nbsp;&nbsp;&nbsp;&nbsp;
 				Sort by: 
 				<select ng-model="orderProp">
 				  <!--<option value=root>Alphabetical</name>-->
@@ -101,8 +101,8 @@
 				  <option value=count># of occurences</name>
 				</select>
  			    <button ng-disabled="currentPage == 0" ng-click="currentPage=currentPage-1">Previous</button>
-				Page <span class="badge badge-inverse">{{currentPage+1}}</span> / 
-					 <span class="badge">{{numberOfPages(  ( searchhits | filter:input ).length  )}}</span>
+				Page <span class="badge badge-inverse" ng-bind="currentPage+1"></span> / 
+					 <span class="badge" ng-bind="numberOfPages(  ( searchhits | filter:input ).length  )"></span>
 				<button ng-disabled="currentPage >= (searchhits | filter:input).length/pageSize - 1" ng-click="currentPage=currentPage+1">Next</button>
 			  </div>
 		  </div>
