@@ -1,0 +1,159 @@
+/* app css stylesheet */
+body {
+	padding-top: 10px!important;
+	padding-bottom: 10px!important;
+}
+.hero-unit{
+	padding: 10px!important;
+}
+.well{
+	padding: 2px!important;
+	overflow: auto!important;	
+}
+#index1{
+	overflow: auto;
+	height: 395px;
+	margin: 0px!important;
+}
+#index2{
+	overflow: auto;
+	height: 240px;
+}
+#index1 > table{ margin: 0px!important; cursor:pointer; }
+#index2 > table{ margin: 0px!important; cursor:pointer; }
+#index1outer > .heading{ margin-bottom: 2px!important; }
+#index2outer > .heading{ margin-bottom: 2px!important; }
+.sidebar-nav-fixed {
+    position:fixed;
+    top:10px;
+    width:21.97%;
+	height: 96.5%;
+}
+.row-fluid > .span-fixed-sidebar {
+    margin-left: 290px;
+}
+.hero-unit, .nav, .navbar{
+	margin-bottom: 5px!important;
+}
+.alert{
+	margin-bottom: 4px!important;
+}
+.navbar-fixed-top{
+	margin-left: 23.5%;
+	z-index:-1;
+}
+.breadcrumb{
+	margin-left:35%!important;
+	margin-bottom:0px!important;
+	text-align:left!important;
+	//color: #ffffff!important;
+	//background-color: #eedc94!important; //background-color: #62cffc
+	margin-right:30%!important;
+}
+.ng-view, div#ng-view{
+	text-align: left!important; 
+	background-color: beige!important; 
+	border-style: dotted; 
+	border-width: 1px; 
+	padding: 8px; 
+	border-radius: 8px;
+}
+div#ng-view > span{
+	background-color: rgba(0, 0, 0, 0)!important;
+}
+#work.progress{
+	height:10px!important;
+	margin-bottom:0px!important;
+}
+@media (max-width: 767px) {
+    .sidebar-nav-fixed {
+        position:static;
+        width:auto;
+    }
+}
+
+@media (max-width: 979px) {
+    .sidebar-nav-fixed {
+        top:70px;
+    }
+}
+.arabic{
+	font-size: 2.5em!important;
+}
+
+.arabicsmall{
+	font-size: 2em!important;
+}
+
+.arabicsmaller{
+	font-size: 1.4em!important;
+}
+
+span.r0{ color: #3B5998;}
+span.r1{ color: red;}
+span.r2{ color: green;}
+span.r3{ color: blue;}
+span.r1, span.r2, span.r3 {
+	--font-weight: bold !important;
+}
+
+/***************/
+/* this is a CSS answer to fix the hover/focus '~' and hover/focus '+' problem in safari and chrome */
+/* tabindex="1" in the link code to fix the 'focus persist' problem in safari and chrome */
+html {-webkit-animation: safariSelectorFix infinite 1s;}
+@-webkit-keyframes safariSelectorFix {
+0% {zoom:1;} 
+100% {zoom:1;}
+}
+
+/* for Internet Explorer to force a menu refresh after :active + ul */
+#showMe p.showMe a,
+html {behavior:url(cssplay19/trigger.htc)}
+
+p.showMe {font:normal 12px/20px arial, sans-serif; color:#666; padding:10px; margin:0 auto;}
+p.showMe a.more, p.showMe a.less {color:#c00; font-weight:bold; text-decoration:none; outline:0;}
+p.showMe a.more + a.less {display:none;}
+p.showMe span {display:none;}
+
+p.showMe a.more:active {*display:none;}
+p.showMe a.more:active ~ span {*display:inline;}
+p.showMe a.more:active + a.less {*display:inline;}
+p.showMe a.less:active {*display:none;}
+
+p.showMe a.more:focus {display:none;}
+p.showMe a.more:focus ~ span {display:inline;}
+p.showMe a.more:focus + a.less {display:inline;}
+p.showMe a.less:focus {display:none;}
+
+p.showMe span:hover {display:inline;}
+/***************/
+
+
+.menu {
+  list-style: none;
+  border-bottom: 0.1em solid black;
+  margin-bottom: 2em;
+  padding: 0 0 0.5em;
+}
+
+.menu:before {
+  content: "[";
+}
+
+.menu:after {
+  content: "]";
+}
+
+.menu > li {
+  display: inline;
+}
+
+.menu > li:before {
+  content: "|";
+  padding-right: 0.3em;
+}
+
+.menu > li:nth-child(1):before {
+  content: "";
+  padding: 0;
+}
