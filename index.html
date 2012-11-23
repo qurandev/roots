@@ -115,12 +115,12 @@
 		<td><A HREF="http://corpus.quran.com/qurandictionary.jsp?q={{hit.root}}" TARGET=_ ng-bind=" hit.count "></A></td>
 		<td class="muted"><A HREF="http://ejtaal.net/m/aa/#q={{hit.root}}" TARGET=_ TITLE="Hans Wehr, Lane, Hava dictionary"><i class="icon-globe"></i></A>&nbsp;&nbsp;&nbsp;&nbsp;
 			<A HREF="http://dictionary.speakarabicquickly.com/dictionary/search/{{ EnToAr(hit.root) }}" TARGET=_ TITLE="Modern dictionary"><i class="icon-hand-up"></i></A></td>
-		<td><p class="showMe" ng-bind="getMeaning( hit.root ).substring(0, 150) ">
-			<a class="more" href="#url" tabindex="1">more »</a> 
-			<a class="less" href="#url" tabindex="1">« less</a>
-			<span><br><span ng-bind="getMeaning( hit.root ).substring(150) "></span>
-			&nbsp;&nbsp;&nbsp;&nbsp;<A HREF="http://www.studyquran.co.uk/{{_MAP_PRL[hit.root[0]]}}.htm" TARGET="_" TITLE="Lookup meaning in PRL (Project Root List)"><i class="icon-book"></i></A>
-			</span></p>
+		<td><p class="showMe" ng-show="!!hit.root">{{getMeaning( hit.root ).substring(0, 150) }}
+					<a class="more" href="#url" tabindex="1">more »</a> 
+					<a class="less" href="#url" tabindex="1">« less</a>
+					<span><br>{{getMeaning( hit.root ).substring(150) }}
+					&nbsp;&nbsp;&nbsp;&nbsp;<A HREF="http://www.studyquran.co.uk/{{_MAP_PRL[hit.root[0]]}}.htm" TARGET="_" TITLE="Lookup meaning in PRL (Project Root List)"><i class="icon-book"></i></A>
+					</span></p>
 		</td>
 	  </tr>
 	  </TBODY>
@@ -189,10 +189,10 @@
   
   <script language="javascript" type="text/javascript" src="lib/jquery-1.7.min.js"></script>
   <script language="javascript" type="text/javascript" src="lib/underscore-min.js"></script>
-  <!-- JIT Library File -->
-  <script language="javascript" type="text/javascript" src="js/jit-yc.js"></script>
   <script language="javascript" type="text/javascript" src="js/mapper.js"></script>
-  <script language="javascript" type="text/javascript" src="js/graph.js"></script>
+  <!-- JIT Library File -->
+<!--  <script language="javascript" type="text/javascript" src="js/jit-yc.js"></script>
+  <script language="javascript" type="text/javascript" src="js/graph.js"></script>-->
   <!--[if IE]><script language="javascript" type="text/javascript" src="../../Extras/excanvas.js"></script><![endif]-->
 </body>
 </html>
