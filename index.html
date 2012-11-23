@@ -19,7 +19,7 @@
 		<tr><TH>Root</TH></tr>
 	  </THEAD>
 	  <TBODY>
-		<tr ng-repeat="item in (roots.split(' ') | filter:root_keyword) | limitTo:pageSize*2"  ng-click="tableRowClicked(synonym, $index)">
+		<tr ng-repeat="item in (roots.split(' ') | filter:(root_keyword || input)) | limitTo:pageSize*2"  ng-click="tableRowClicked(synonym, $index)">
 			<!--<td ng-bind="1 + $index"></td>-->
 			<td><!--<span ng-bind="EnToAr( synonymdetail.root )" class=arabic></span>-->
 				<span class="muted" ng-show="!item">-</span>
@@ -47,7 +47,7 @@
 		<tr ng-repeat="item in (tree | filter:(tree_root || input)) | limitTo:15"  ng-click="tableRowClicked(synonym, $index)">
 			<!--<td ng-bind="1 + $index"></td>-->
 			<td>
-				<span class=arabic>
+				<span class=arabicsmall>
 					<A HREF="http://corpus.quran.com/search.jsp?q=root:{{item.r}}" TARGET=_>
 						<span dir=rtl class=r0 ng-bind="EnToAr(item.r[0])"></span>&zwnj;<span class=r1 ng-bind="EnToAr(item.r[1])"></span>&zwnj;<span class=r2 ng-bind="EnToAr(item.r[2])"></span>&zwnj;<span class=r3 ng-bind="EnToAr(item.r.substring(3))"></span>
 					</A>
@@ -86,7 +86,7 @@
 	<button ng-disabled="currentPage >= (searchhits | filter:input).length/pageSize - 1" ng-click="pageChange(+1)">Next</button>
 	<span xclass="margin-left:20px;xfloat:right">
 		Sort by: 
-		<select ng-model="orderProp">
+		<select ng-model="orderProp" ng-change="setOrderProp()">
 		  <option value=alphabet>Alphabetical</name>
 		  <option value=group>Arrangement</name>
 		  <option value=-count># of occurences</name>

@@ -36,6 +36,9 @@ var rootsController = function($scope, $http){
 	$scope.setPage = function(pageno){ if(!pageno || !parseInt(pageno) ) pageno = 0;
 		$scope.currentPage = pageno;	
 	}
+	$scope.setOrderProp = function(){
+		$scope.orderProp = this.orderProp;
+	}
 	$scope.roots = ROOTS_DICT;
 	$scope.tree = _.reject(_TREE, function(value,key){
 	   return !value.r || value.r == '-';
@@ -87,7 +90,7 @@ var rootsController = function($scope, $http){
 			//var regex = new RegExp("[?: ]" + escapeRegex(input) + "\\S*?\\S*?[?: ]", "g");  //TODO: escape the input!!
 			//$scope.searchhits = ROOTS_DICT.match( regex );
 			if(ROOTS_DICT){ //root, group: orderBy options
-				$.each( ROOTS_DICT.split(' '), function(i, item){
+				$.each( ROOTS_DICT.split(' '), function(i, item){ if(!item || item=='-')return;
 					var obj = { root: item, group: (1 + item.indexOf( input ) ) || 10, count: ROOTS_MAP[item], alphabet: $scope._MAP[item[0]] };
 					var ar = EnToAr(item), j = 0; if(ar) $.each(ar.split(''), function(k, kk){ obj['r'+j++] = kk; });
 					$scope.searchhits.push( obj ); //$scope.searchhits = ROOTS_DICT.split(' ');
@@ -96,7 +99,7 @@ var rootsController = function($scope, $http){
 		}else{ 
 			$scope.rootoutput = []; $scope.searchhits = [];  
 			if(ROOTS_DICT){ //root, group: orderBy options
-				$.each( ROOTS_DICT.split(' '), function(i, item){
+				$.each( ROOTS_DICT.split(' '), function(i, item){if(!item || item=='-')return;
 					var obj = { root: item, group: 1, count: ROOTS_MAP[item], alphabet: $scope._MAP[item[0]] };
 					var ar = EnToAr(item), j = 0; if(ar) $.each(ar.split(''), function(k, kk){ obj['r'+j++] = kk; });
 					$scope.searchhits.push( obj ); //$scope.searchhits = ROOTS_DICT.split(' ');
