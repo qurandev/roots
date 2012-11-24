@@ -26,53 +26,6 @@ var Log = {
 
 var st;
 function init(){
-	var json = {"id":"rootrHm","name":"rHm","data":{},"children":[{"id":"57rootr~aHoma`n","name":"r~aHoma`n","data":{},"children":[]},{"id":"116rootr~aHiym","name":"r~aHiym","data":{},"children":[]},{"id":"114rootraHomap","name":"raHomap","data":{},"children":[]},{"id":"12root>aroHaAm","name":">aroHaAm","data":{},"children":[]},{"id":"28rootr~aHima","name":"r~aHima","data":{},"children":[]},{"id":"4root>aroHam","name":">aroHam","data":{},"children":[]},{"id":"6rootr~a`Himiyn","name":"r~a`Himiyn","data":{},"children":[]},{"id":"1rootruHom","name":"ruHom","data":{},"children":[]},{"id":"1rootmaroHamap","name":"maroHamap","data":{},"children":[]}]};
-	
-	json = {"id":"rootsmw","name":"smw","data":{},"children":[{"id":"39root{som","name":"{som","data":{},"children":[]},{"id":"310rootsamaA^'","name":"samaA^'","data":{},"children":[]},{"id":"21rootm~usam~FY","name":"m~usam~FY","data":{},"children":[]},{"id":"8rootsam~aY`","name":"sam~aY`","data":{},"children":[]},{"id":"2rootsamiy~","name":"samiy~","data":{},"children":[]},{"id":"1roottasomiyap","name":"tasomiyap","data":{},"children":[]}]};
-	
-	
-	var graph = { "id": "root", "name": "root", data: {}, children: [] }
-	
-	
-	//var json = _ROOTS_MAPS_ARRAY[8];
-
-	
-	_MAP_RAW_JSON_TO_GRAPH = function(_ROOTS_){
-		var graph = { "id": "root", "name": "root", data: {}, children: [] };
-		var _MAP_ = graph, firstLetter, lettersMap = {}, lettersArray, lettersString, letterIndex;
-		$.each(Object.keys(_ROOTS_), function(index, root){
-			firstLetter = root.split('')[0];
-			lettersMap[ firstLetter ] ? ++lettersMap[ firstLetter ] : (lettersMap[ firstLetter ] = 1);
-		});
-		lettersArray = Object.keys( lettersMap ); 
-		lettersString = lettersArray.join('');
-		$.each(lettersArray, function(indx, ltr){ if(!ltr || ltr.length != 1) debugger;
-			if(!_MAP_.children[indx] ) //have to insert a child first
-				_MAP_.children[indx] = { "id": indx, "name": ltr, data: {}, children: [] };
-		});
-		
-		$.each(Object.keys(_ROOTS_), function(index, root){
-			if(!root || root == 'name') debugger;
-			//1) Lets first branch out by first letter...
-			firstLetter = root.split('')[0];
-			letterIndex = lettersString.indexOf(firstLetter);
-			if(letterIndex <0) debugger; //shuldnt happen
-			if(!_MAP_.children[letterIndex] ) debugger; //have to insert a child first. shouldnt happen
-			
-			//2) Now add branch for the root
-			var rootIndex = -1;
-			rootIndex = -1 + _MAP_.children[letterIndex].children.push( { "id": root, "name": root, data: {"n": _ROOTS_[root].n, "f": _ROOTS_[root].f}, children: [] } );
-			
-			//3) Now add children of the root
-			var rootChildren = _ROOTS_[ root ].d;
-			if(rootChildren)
-				$.each( Object.keys(rootChildren), function(childno, child){
-					_MAP_.children[letterIndex].children[ rootIndex ].children.push( { "id": child, "name": child, data: {"n": rootChildren[child]}, children: [] } );
-				});
-		});
-		return _MAP_;
-	}
-
     //init Spacetree
     //Create a new ST instance
     /*var -- stuff into Global*/ st = new $jit.ST({
@@ -147,9 +100,9 @@ function init(){
             //set label styles
             var style = label.style;
             style.width = 60 + 'px';
-            style.height = 48 + 'px'; //17 + 'px';            
+            style.height = 28 + 'px'; //48 17 + 'px';            
             style.cursor = 'pointer';
-            style.color = '#333';
+            style.color = '#3a87ad'; //'#333';
             style.fontSize = '2em'; //'0.8em';
             style.textAlign= 'center';
             style.paddingTop = '3px';
@@ -225,10 +178,10 @@ function init(){
 			p.id = p.name = prefix; p.children = [];
 			_.each(getLevel2(prefix), function(root){
 				var q = {};
-				q.id = q.name = root; q.children = [];
+				q.id = q.name = root; q.children = []; //q.data = {}; q.data.n = 786;
 				_.each(getLevel2(root, 1).l, function(lem){
 					var r = {};
-					r.id = r.name = lem;
+					r.id = r.name = lem; //r.data = {}; r.data.n = 101;
 					q.children.push(r);
 				});
 				p.children.push(q);

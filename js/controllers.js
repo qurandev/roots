@@ -59,7 +59,7 @@ var rootsController = function($scope, $http){
 			setTimeout( function(){
 				init();
 				window.scroll(0, document.height);
-			}, 500);
+			}, 1500);
 		}
 	}
 	//if(ROOTS_DICT){ $scope.searchhits = ROOTS_DICT.split(' '); }
