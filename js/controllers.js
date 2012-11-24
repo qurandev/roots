@@ -43,6 +43,12 @@ var rootsController = function($scope, $http){
 	$scope.tree = _.reject(_TREE, function(value,key){
 	   return !value.r || value.r == '-';
 	});
+	_.each($scope.tree, function(value, key){
+		if(!value.lb && value.l){
+			value.lb = BuckToBare( value.l.join(' ') ).split(' ');
+		}
+	});
+	console.log($scope.tree);
 	$scope.tree_root = '';
 	$scope._ = _;
 	$scope.sumOfArray = function(array){ if(!array) return 0;
