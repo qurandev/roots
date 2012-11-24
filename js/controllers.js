@@ -54,6 +54,14 @@ var rootsController = function($scope, $http){
 		return _.reduce(array, function(memo, num){ return memo + num; }, 0);
 	}
 
+	$scope.graphToggled = function(){
+		if($scope.graph){
+			setTimeout( function(){
+				init();
+				window.scroll(0, document.height);
+			}, 500);
+		}
+	}
 	//if(ROOTS_DICT){ $scope.searchhits = ROOTS_DICT.split(' '); }
 	
 	$scope.orderProp = "group";
